@@ -1,0 +1,61 @@
+<div class="container">
+
+<h1>Portfolio</h1>
+
+<div class="panel panel-primary">
+  <div class="panel-heading"><%= current_portfolio.name.capitalize %></div>
+
+    <table class="table">
+      <thead>
+        <tr>
+            <th></th>
+            <th>Stock</th>
+            <th>qt</th>
+            <th>$_buy</th>
+            <th>$_sell</th>
+            <th>p/l</th>
+            <th>result</th>
+            <th>bought_at</th>
+            <th>sold_at</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% full_portfolio.each do |transaction| %>
+
+        <tr style='background-color:<%= transaction.sold? ? "#eee;" : "#fff;" %>' >
+          <th><%= transaction.sold? ? "SOLD" : "OPEN" %></th>
+          <td><%= transaction.stock.ticker %></td>
+          <td><%= transaction.buy_quantity %></td>
+          <td><%= '%.2f' % transaction.buy_price %></td>
+          <td><%= '%.2f' % transaction.sell_price %></td>
+          <td class=<%= transaction.profit? ? "profit" : "loss" %>><%= '%.2f' % sprintf("%+d", transaction.profit_or_loss) %></td>
+          <td class=<%= transaction.profit? ? "profit" : "loss" %>><%= transaction.formatted_valuation %></td>
+
+          <% if transaction.buy_datetime %>
+            <td><%= transaction.buy_datetime.strftime("%d/%m/%y") %></td>
+          <% else %>
+            <td></td>
+          <% end  %>
+          <% if transaction.sell_datetime %>
+            <td><%= transaction.sell_datetime.strftime("%d/%m/%y") %></td>
+          <% else %>
+            <td></td>
+          <% end  %>
+        </tr>
+
+      <% end  %>
+     </tbody>
+
+    </table>
+  </div>
+</div>
+
+<%= erb :"partials/_buy" %>
+
+<%= erb  :"partials/_sell" %>
+
+
+</div>
+
+
+

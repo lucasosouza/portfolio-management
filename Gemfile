@@ -15,6 +15,13 @@ gem 'rake'
 
 gem 'shotgun'
 
+gem 'debugger'
+
+gem 'rack-flash3'
+gem 'sinatra-redirect-with-flash'
+
+gem 'bcrypt'
+
 group :test do
   gem 'shoulda-matchers'
   gem 'rack-test'
