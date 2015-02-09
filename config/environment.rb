@@ -20,6 +20,15 @@ require "sinatra/reloader" if development?
 
 require 'erb'
 
+require 'date'
+
+require 'debugger'
+
+require 'rack-flash'
+require 'sinatra/redirect_with_flash'
+
+require 'bcrypt'
+
 # Some helper constants for path-centric logic
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 
@@ -31,11 +40,15 @@ configure do
   set :root, APP_ROOT.to_path
   # See: http://www.sinatrarb.com/faq.html#sessions
   enable :sessions
+  use Rack::Flash, :sweep => true
   set :session_secret, ENV['SESSION_SECRET'] || 'this is a secret shhhhh'
 
   # Set the views to
   set :views, File.join(Sinatra::Application.root, "app", "views")
+
+  #set :show_exceptions, false
 end
+
 
 # Set up the controllers and helpers
 Dir[APP_ROOT.join('app', 'controllers', '*.rb')].each { |file| require file }

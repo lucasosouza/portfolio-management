@@ -1,0 +1,41 @@
+
+.lead.welcome-text {
+  font-size:250%;
+}
+
+.row-height-30 {
+  height:300px;
+}
+
+.btn-extra-lg {
+  width:180px;
+  height:50px;
+  font-size:250%;
+  vertical-align: middle;
+}
+
+.main-jumbotron {
+  background-color: #fff;
+}
+
+.mainpage-image {
+  height: 570px;
+  width: auto;
+}
+
+.first-row {
+  margin-top: -60px;
+  margin-left: 15px;
+}
+
+.flash-sinatra-message {
+  margin-top: -20px;
+}
+
+.profit {
+  color: blue;
+}
+
+.loss {
+  color: red;
+}

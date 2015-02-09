@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- 
+  <!--
     normalize.css removes cross-browser differences in defaults, e.g.,
     differences in how form elements appear between Firefox and IE
     See: http://necolas.github.com/normalize.css/
   -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/normalize.css">
   <!--
     application.css is where you put your styles
@@ -13,11 +14,41 @@
   <link rel="stylesheet" href="/css/application.css">
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <script src="/js/application.js"></script>
 
   <title></title>
 </head>
 <body>
-  <%= yield %>
+
+   <header class="navbar navbar-inverse navbar-static-top" id="main-header">
+      <nav class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Prosperi.ty</a>
+        </div>
+        <% unless logged_in? %>
+          <%= erb :"/partials/_login" %>
+        <% else %>
+          <%= erb :"/partials/_user_links" %>
+        <% end %>
+      </nav>
+    </header>
+
+    <% if flash[:notice] %>
+    <div class="alert alert-success flash-sinatra-message" role="alert">
+      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+       <%= flash[:notice]%>
+    </div>
+    <% end %>
+
+    <% if flash[:error] %>
+    <div class="alert alert-warning flash-sinatra-message" role="alert">
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+       <%= flash[:error] %>
+    </div>
+    <% end %>
+
+    <%= yield %>
+
 </body>
 </html>
