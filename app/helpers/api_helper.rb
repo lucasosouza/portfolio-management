@@ -2,6 +2,19 @@ require 'nokogiri'
 require 'open-uri'
 require 'net/http'
 
+
+module Net
+    class HTTP
+        alias old_initialize initialize
+
+        def initialize(*args)
+            old_initialize(*args)
+            @read_timeout = 2
+            @open_timeout = 2
+        end
+    end
+end
+
 module Bovespa
   class Cotacao
 
@@ -28,7 +41,11 @@ module Bovespa
     end
 
     def latest_value
-      valor_ultimo
+      valor_ultimo.sub(',','.').to_f
+    end
+
+    def datetime
+      DateTime.parse(self.data + "T" + self.hora)
     end
 
     def ibovespa?
@@ -42,5 +59,5 @@ module Bovespa
   end
 end
 
-petr4 = Bovespa::Cotacao.new("PETR4")
-p petr4.latest_value
+# petr4 = Bovespa::Cotacao.new("PETR4")
+# p petr4.latest_value.class

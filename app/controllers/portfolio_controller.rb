@@ -1,4 +1,5 @@
 get '/portfolio' do
+  update_quotes
   erb :portfolio
 end
 

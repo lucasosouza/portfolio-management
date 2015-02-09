@@ -12,6 +12,18 @@ require 'nokogiri'
 require 'open-uri'
 require 'net/http'
 
+module Net
+    class HTTP
+        alias old_initialize initialize
+
+        def initialize(*args)
+            old_initialize(*args)
+            @read_timeout = 5     # 5 minutes
+            @open_timeout = 5
+        end
+    end
+end
+
 module Bovespa
   class Cotacao
 
@@ -55,13 +67,14 @@ end
 # petr4 = Bovespa::Cotacao.new("PETR4")
 # p petr4.latest_value
 
+p cotacoes
 i = 0
 cotacoes_filtradas = []
-cotacoes.uniq.sort.each do |acao|
+cotacoes.uniq.each do |acao|
   i += 1
   puts i
   begin
-    if Bovespa::Cotacao.new(acao).latest_value > 0
+    if Bovespa::Cotacao.new(acao).latest_value.to_f > 0
       cotacoes_filtradas << acao
     end
   rescue
@@ -69,7 +82,8 @@ cotacoes.uniq.sort.each do |acao|
   end
 end
 
-File.new("cotacoes_filtradas.txt") do |handler|
+puts cotacoes_filtradas
+File.open("cotacoes_filtradas.txt", "w+") do |handler|
   cotacoes_filtradas.each { |acao| handler.puts acao }
 end
 

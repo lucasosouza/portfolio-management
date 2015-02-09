@@ -43,7 +43,11 @@ class Transaction < ActiveRecord::Base
   end
 
   def final_amount
-    self.sell_quantity * self.sell_price
+    if sold?
+      self.sell_quantity * self.sell_price
+    else
+      self.buy_quantity * latest_quote
+    end
   end
 
   def profit_or_loss
@@ -55,11 +59,15 @@ class Transaction < ActiveRecord::Base
   end
 
   def valuation
-    profit_or_loss / initial_amount
+    (profit_or_loss / initial_amount) * 100
   end
 
   def formatted_valuation
    (valuation > 0 ? "+" : "") + ('%.2f' % valuation).to_s + "%"
+  end
+
+  def latest_quote
+    self.stock.quotes.sort_by { |quote| quote.datetime }[-1].price
   end
 
 

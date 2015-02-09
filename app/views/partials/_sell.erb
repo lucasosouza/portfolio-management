@@ -6,7 +6,7 @@
     <div class="form-group">
         <select class="form-control" name="stock_id">
           <option selected="selected" disabled="disabled">Choose a stock</option>
-          <% all_stocks.each do |stock| %>
+          <% stocks_in_portfolio.each do |stock| %>
           <option value=<%= stock.id %>><%= stock.ticker %></option>
           <% end %>
         </select>

@@ -9,10 +9,11 @@
       <thead>
         <tr>
             <th></th>
-            <th>Stock</th>
-            <th>qt</th>
-            <th>$_buy</th>
-            <th>$_sell</th>
+            <th>stock</th>
+            <th>qty</th>
+            <th>$_bought</th>
+            <th>$_current</th>
+            <th>amount</th>
             <th>p/l</th>
             <th>result</th>
             <th>bought_at</th>
@@ -27,7 +28,12 @@
           <td><%= transaction.stock.ticker %></td>
           <td><%= transaction.buy_quantity %></td>
           <td><%= '%.2f' % transaction.buy_price %></td>
-          <td><%= '%.2f' % transaction.sell_price %></td>
+          <% if transaction.sold? %>
+            <td><%= '%.2f' % transaction.sell_price %></td>
+          <% else  %>
+          <td><%= '%.2f' % transaction.latest_quote %></td>
+          <% end %>
+          <td><%= '%.2f' % transaction.initial_amount %></td>
           <td class=<%= transaction.profit? ? "profit" : "loss" %>><%= '%.2f' % sprintf("%+d", transaction.profit_or_loss) %></td>
           <td class=<%= transaction.profit? ? "profit" : "loss" %>><%= transaction.formatted_valuation %></td>
 

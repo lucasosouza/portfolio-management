@@ -2,9 +2,7 @@
 
 helpers do
 
-  def all_stocks
-    Stock.all
-  end
+
 
 end
 
