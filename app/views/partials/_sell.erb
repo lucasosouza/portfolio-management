@@ -1,20 +1,20 @@
-<form action="/sell" method='post'>
-  <div class="col col-md-4 col-md-offset-2">
-    <div class="page-header">
-      <h3><small>Sell</small></h3>
-    </div>
+<div class="panel-body">
+
+<form id="sell-form" action="/sell" method='post'>
     <div class="form-group">
-        <select class="form-control" name="stock_id">
+        <select class="form-control" name="stock_id" id="sell-form-options">
           <option selected="selected" disabled="disabled">Choose a stock</option>
-          <% stocks_in_portfolio.each do |stock| %>
-          <option value=<%= stock.id %>><%= stock.ticker %></option>
+          <% stocks_in_portfolio.uniq.each do |stock| %>
+          <option value='<%= stock.id %>'><%= stock.ticker %></option>
           <% end %>
         </select>
-        <input type="number" min="0" max="10000" step="100" class="form-control" placeholder="Quantity" name="quantity">
-        <input type="number" min="0" max="200" step="0.01" class="form-control" placeholder="Price" name="price">
-        <input type="datetime-local" value=<%= Time.now.strftime("%Y-%m-%dT%H:%M") %> class="form-control" placeholder="Date and time" name="datetime">
+        <input type="number" min="0" max="10000" step="100" class="form-control" placeholder="Quantity" name="quantity" required>
+        <input type="number" min="0" max="200" step="0.01" class="form-control" placeholder="Price" name="price" required>
+        <input type="datetime-local" value=<%= Time.now.strftime("%Y-%m-%dT%H:%M") %> class="form-control" placeholder="Date and time" name="datetime" required>
     </div>
     <button type="submit" class="btn btn-danger">Sell</button>
- </div>
 
 </form>
+
+</div>
+

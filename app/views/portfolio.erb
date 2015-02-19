@@ -1,6 +1,38 @@
 <div class="container">
 
-<h1>Portfolio</h1>
+<div class="page-header" style="margin-top:-20px;">
+  <h1>Portfolio</h1>
+</div>
+</br>
+
+<div class="row text-center vcenter">
+  <div class="col col-md-1"><p class="lead" style="font-size:18px;">Status:</p></div>
+  <div class="col col-md-2">
+    <select class="form-control" id="select-status">
+      <option value="">All</option>
+      <option value="">Open</option>
+      <option value="">Sold</option>
+    </select>
+  </div>
+  <div class="col col-md-1"><p class="lead" style="font-size:18px;">Stock:</p></div>
+  <div class="col col-md-2">
+    <select class="form-control" id="select-ticker">
+      <option value="all">All</option>
+      <% stocks_in_portfolio.uniq.each do |stock| %>
+        <option value='<%= stock.id %>'><%= stock.ticker %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="col col-md-1"><p class="lead" style="font-size:18px;">Span:</p></div>
+  <div class="col col-md-2">
+    <input type="number" class="form-control" id="select-max-span" min="0">
+  </div>
+  <div class="col col-md-1"><p class="lead" style="font-size:18px;">From:</p></div>
+  <div class="col col-md-2">
+    <input type="date" value=<%= Time.now.strftime("%Y-%m-%d") %> class="form-control" id="select-expired-date">
+  </div>
+</div>
+<br>
 
 <div class="panel panel-primary">
   <div class="panel-heading"><%= current_portfolio.name.capitalize %></div>
@@ -18,35 +50,32 @@
             <th>result</th>
             <th>bought_at</th>
             <th>sold_at</th>
+            <th>days_open</th>
         </tr>
       </thead>
       <tbody>
       <% full_portfolio.each do |transaction| %>
 
-        <tr style='background-color:<%= transaction.sold? ? "#eee;" : "#fff;" %>' >
-          <th><%= transaction.sold? ? "SOLD" : "OPEN" %></th>
-          <td><%= transaction.stock.ticker %></td>
-          <td><%= transaction.buy_quantity %></td>
-          <td><%= '%.2f' % transaction.buy_price %></td>
+        <tr style='background-color:<%= transaction.sold? ? "#eee;" : "#fff;" %>' data-transaction-id='<%= transaction.id %>' >
+          <th data-status><%= transaction.sold? ? "SOLD" : "OPEN" %></th>
+          <td data-ticker><%= transaction.stock.ticker %></td>
+          <td data-quantity><%= transaction.buy_quantity %></td>
+          <td data-buy-price><%= '%.2f' % transaction.buy_price %></td>
           <% if transaction.sold? %>
-            <td><%= '%.2f' % transaction.sell_price %></td>
+            <td data-sell-price><%= '%.2f' % transaction.sell_price %></td>
           <% else  %>
-          <td><%= '%.2f' % transaction.latest_quote %></td>
+            <td data-sell-price><%= '%.2f' % transaction.latest_quote %></td>
           <% end %>
-          <td><%= '%.2f' % transaction.initial_amount %></td>
-          <td class=<%= transaction.profit? ? "profit" : "loss" %>><%= '%.2f' % sprintf("%+d", transaction.profit_or_loss) %></td>
-          <td class=<%= transaction.profit? ? "profit" : "loss" %>><%= transaction.formatted_valuation %></td>
-
-          <% if transaction.buy_datetime %>
-            <td><%= transaction.buy_datetime.strftime("%d/%m/%y") %></td>
-          <% else %>
-            <td></td>
-          <% end  %>
+          <td data-initial-amount><%= '%.2f' % transaction.initial_amount %></td>
+          <td data-profit-loss class=<%= transaction.profit? ? "profit" : "loss" %>><%= '%.2f' % sprintf("%+d", transaction.profit_or_loss) %></td>
+          <td data-profit-loss class=<%= transaction.profit? ? "profit" : "loss" %>><%= transaction.formatted_valuation %></td>
+          <td data-buy-datetime><%= transaction.buy_datetime.strftime("%d/%-m/%y") %></td>
           <% if transaction.sell_datetime %>
-            <td><%= transaction.sell_datetime.strftime("%d/%m/%y") %></td>
+          <td data-sell-datetime><%= transaction.sell_datetime.strftime("%d/%-m/%y") %></td>
           <% else %>
-            <td></td>
+          <td data-sell-datetime></td>
           <% end  %>
+          <td data-days-open><%= transaction.days_open %></td>
         </tr>
 
       <% end  %>
@@ -56,10 +85,23 @@
   </div>
 </div>
 
-<%= erb :"partials/_buy" %>
+<div class="row">
 
-<%= erb  :"partials/_sell" %>
+  <div class="col col-md-5 col-md-offset-1">
+    <div class="panel panel-success">
+      <div id="buy-stock-header" class="panel-heading"><i class="glyphicon glyphicon-plus"></i> Buy stock</div>
+      <div id="buy-stock-form" style="display:none"><%= erb :"partials/_buy" %></div>
+    </div>
+  </div>
 
+  <div class="col col-md-5">
+    <div class="panel panel-danger">
+      <div id="sell-stock-header" class="panel-heading"><i class="glyphicon glyphicon-minus"></i> Sell stock</div>
+      <div id="sell-stock-form" style="display:none"><%= erb :"partials/_sell" %></div>
+    </div>
+  </div>
+
+</div>
 
 </div>
 

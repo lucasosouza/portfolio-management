@@ -30,6 +30,8 @@ class Transaction < ActiveRecord::Base
     end
   end
 
+### to be deprecated
+
   def available_stock
     self.buy_quantity - self.sell_quantity
   end
@@ -66,11 +68,44 @@ class Transaction < ActiveRecord::Base
    (valuation > 0 ? "+" : "") + ('%.2f' % valuation).to_s + "%"
   end
 
+### to be deprecated
+
   def latest_quote
-    self.stock.quotes.sort_by { |quote| quote.datetime }[-1].price
+    if stock.quotes.count > 0
+      self.stock.quotes.sort_by { |quote| quote.datetime }[-1].price
+    else
+      0
+    end
   end
 
+  def stock_ticker
+    stock.ticker
+  end
 
+  def stockid
+    stock.id
+  end
 
+  def days_open
+    ((( sell_datetime || Time.now ) - buy_datetime)/60/60/24).to_i
+  end
+
+  def export
+    {
+      "id" => id,
+      "buyQuantity" => buy_quantity,
+      "buyPrice" => buy_price,
+      "buyDatetime" => buy_datetime,
+      "sellQuantity" => sell_quantity,
+      "sellDatetime" => sell_datetime,
+      "stockTicker" => stock_ticker,
+      "latestQuote" => latest_quote,
+      "daysOpen" => days_open,
+      "stockId" => stockid,
+      "sellPrice" => sell_price,
+      "createdAt" => created_at,
+      "updatedAt" => updated_at
+    }
+  end
 
 end
