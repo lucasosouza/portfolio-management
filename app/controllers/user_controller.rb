@@ -1,5 +1,5 @@
 get '/users/new' do
-  erb :new_user
+  erb :newUser
 end
 
 post '/users' do

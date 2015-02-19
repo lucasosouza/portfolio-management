@@ -54,7 +54,7 @@
         </tr>
       </thead>
       <tbody>
-      <% full_portfolio.each do |transaction| %>
+<!--       <% full_portfolio.each do |transaction| %>
 
         <tr style='background-color:<%= transaction.sold? ? "#eee;" : "#fff;" %>' data-transaction-id='<%= transaction.id %>' >
           <th data-status><%= transaction.sold? ? "SOLD" : "OPEN" %></th>
@@ -78,7 +78,7 @@
           <td data-days-open><%= transaction.days_open %></td>
         </tr>
 
-      <% end  %>
+      <% end  %> old ruby way of rendering, delete if ajax is fast enough -->
      </tbody>
 
     </table>

@@ -77,12 +77,13 @@ function View () {
     if (d instanceof Date) {
       var curr_date = d.getDate();
       var curr_month = d.getMonth();
-      var curr_year = if (d.getYear() > 100) {d.getYear()-100} else {d.getYear()};
+      var curr_year = d.getYear() - 100;
       return curr_date + "/" + curr_month + "/" + curr_year
     } else {
       return ""
     }
-  }
+  },
+
 
   this.renderTable = function(rows){
     //debugger
@@ -105,6 +106,32 @@ function Controller (portfolio, view) {
     console.log(this.portfolio.sortedTransactions())
     this.view.renderTable(this.portfolio.sortedTransactions())
   }
+
+  // this.stockFilter = function(){
+  //   $('#select-status').change(function(e) {
+  //   var status = $('#select-status option:selected').text().toUpperCase();
+  //   if (status === "open") {
+  //     $.each(this.portfolio.transactions, function(i, t){
+  //       if (t.status === "SOLD") {
+  //         $(obj).parent().fadeOut(0);
+  //       } else if ($(obj).text().toLowerCase() === "open") {
+  //         $(obj).parent().fadeIn(0);
+  //       }
+  //     })
+  //   } else if (status === "sold") {
+  //     $.each($('th[data-status]'), function(i, obj){
+  //       if ($(obj).text().toLowerCase() === "open") {
+  //         $(obj).parent().fadeOut(0);
+  //       } else if ($(obj).text().toLowerCase() === "sold") {
+  //         $(obj).parent().fadeIn(0);
+  //       }
+  //     })
+  //   } else if (status === "all") {
+  //     $.each($('th[data-status]'), function(i, obj){
+  //         $(obj).parent().fadeIn(0);
+  //     })
+  //   }
+  // }
 
 }
 
