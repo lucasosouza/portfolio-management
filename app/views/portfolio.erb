@@ -5,7 +5,7 @@
 </div>
 </br>
 
-<div class="row text-center vcenter">
+<div class="row text-center vcenter" id="filters">
   <div class="col col-md-1"><p class="lead" style="font-size:18px;">Status:</p></div>
   <div class="col col-md-2">
     <select class="form-control" id="select-status">
@@ -29,7 +29,7 @@
   </div>
   <div class="col col-md-1"><p class="lead" style="font-size:18px;">From:</p></div>
   <div class="col col-md-2">
-    <input type="date" value=<%= Time.now.strftime("%Y-%m-%d") %> class="form-control" id="select-expired-date">
+    <input type="date" value="<%= Date.parse("2015-01-01").strftime("%Y-%m-%d") %>" class="form-control" id="select-expired-date">
   </div>
 </div>
 <br>
@@ -54,7 +54,7 @@
         </tr>
       </thead>
       <tbody>
-<!--       <% full_portfolio.each do |transaction| %>
+ <!--      <% full_portfolio.each do |transaction| %>
 
         <tr style='background-color:<%= transaction.sold? ? "#eee;" : "#fff;" %>' data-transaction-id='<%= transaction.id %>' >
           <th data-status><%= transaction.sold? ? "SOLD" : "OPEN" %></th>
@@ -78,7 +78,7 @@
           <td data-days-open><%= transaction.days_open %></td>
         </tr>
 
-      <% end  %> old ruby way of rendering, delete if ajax is fast enough -->
+      <% end  %> -->
      </tbody>
 
     </table>
@@ -102,6 +102,10 @@
   </div>
 
 </div>
+
+<div id="vis">
+</div>
+
 
 </div>
 

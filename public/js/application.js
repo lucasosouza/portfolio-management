@@ -78,7 +78,7 @@ function View () {
       var curr_date = d.getDate();
       var curr_month = d.getMonth();
       var curr_year = d.getYear() - 100;
-      return curr_date + "/" + curr_month + "/" + curr_year
+      return curr_month + "/" + curr_date + "/" + curr_year
     } else {
       return ""
     }
