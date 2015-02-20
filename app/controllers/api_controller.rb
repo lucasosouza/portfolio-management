@@ -6,8 +6,8 @@ end
 
 post '/api/v1/buy' do
   transaction = Transaction.create(buy_quantity: params[:quantity].to_i, buy_price: params[:price].to_f, buy_datetime: DateTime.parse(params[:datetime]), index_id: 2, portfolio_id: current_portfolio.id, stock_id: params[:stock_id])
+  get_graph_data
   status 200
-  puts current_portfolio.transactions.map(&:export).to_json
   current_portfolio.transactions.map(&:export).to_json
 end
 
@@ -17,6 +17,7 @@ post '/api/v1/sell' do
     status 403
     { error: message }
   else
+    #get_graph_data
     status 200
     current_portfolio.transactions.map(&:export).to_json
   end

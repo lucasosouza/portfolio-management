@@ -37,5 +37,28 @@ helpers do
     end
   end
 
+  def get_graph_data
+    graph_data = []
+    stocks_in_portfolio.uniq.each do |stock|
+      quotes = stock.quotes.sort_by { |q| q.datetime }
+      if quotes.first.datetime == Date.parse('2014-02-20')
+        quotes.each do |quote|
+          graph_data << quote.export
+        end
+      end
+    end
+    puts graph_data
+    save_to_file(graph_data)
+  end
+
+  def save_to_file(graph_data)
+    CSV.open("public/files/stocks.csv", "wb") do |csv|
+      csv << ["symbol","price","date"]
+      graph_data.each do |data|
+        csv << data
+      end
+    end
+  end
+
 end
 

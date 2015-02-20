@@ -1,10 +1,10 @@
-{
-  "width": 500,
-  "height": 200,
+var specifications = {
+  "width": 800,
+  "height": 400,
   "data": [
     {
       "name": "stocks",
-      "url": "data/stocks.csv",
+      "url": "/files/stocks.csv",
       "format": {"type": "csv", "parse": {"price":"number", "date":"date"}}
     }
   ],
@@ -68,3 +68,8 @@
     }
   ]
 }
+
+function parse(spec) {
+  vg.parse.spec(spec, function(chart) { chart({el:"#vis"}).update(); });
+}
+parse(specifications);

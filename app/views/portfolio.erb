@@ -53,33 +53,7 @@
             <th>days_open</th>
         </tr>
       </thead>
-      <tbody>
- <!--      <% full_portfolio.each do |transaction| %>
-
-        <tr style='background-color:<%= transaction.sold? ? "#eee;" : "#fff;" %>' data-transaction-id='<%= transaction.id %>' >
-          <th data-status><%= transaction.sold? ? "SOLD" : "OPEN" %></th>
-          <td data-ticker><%= transaction.stock.ticker %></td>
-          <td data-quantity><%= transaction.buy_quantity %></td>
-          <td data-buy-price><%= '%.2f' % transaction.buy_price %></td>
-          <% if transaction.sold? %>
-            <td data-sell-price><%= '%.2f' % transaction.sell_price %></td>
-          <% else  %>
-            <td data-sell-price><%= '%.2f' % transaction.latest_quote %></td>
-          <% end %>
-          <td data-initial-amount><%= '%.2f' % transaction.initial_amount %></td>
-          <td data-profit-loss class=<%= transaction.profit? ? "profit" : "loss" %>><%= '%.2f' % sprintf("%+d", transaction.profit_or_loss) %></td>
-          <td data-profit-loss class=<%= transaction.profit? ? "profit" : "loss" %>><%= transaction.formatted_valuation %></td>
-          <td data-buy-datetime><%= transaction.buy_datetime.strftime("%d/%-m/%y") %></td>
-          <% if transaction.sell_datetime %>
-          <td data-sell-datetime><%= transaction.sell_datetime.strftime("%d/%-m/%y") %></td>
-          <% else %>
-          <td data-sell-datetime></td>
-          <% end  %>
-          <td data-days-open><%= transaction.days_open %></td>
-        </tr>
-
-      <% end  %> -->
-     </tbody>
+      <tbody></tbody>
 
     </table>
   </div>
@@ -103,9 +77,18 @@
 
 </div>
 
-<div id="vis">
-</div>
+  <div class="col col-md-10 col-md-offset-1">
+    <div class="page-header">
+      <h1>Comparison</h1>
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="col col-md-6 col-md-offset-2">
+      <div id="vis">
+      </div>
+    </div>
+  </div>
 
 </div>
 
