@@ -9,37 +9,22 @@ function FilterController() {
         if ($(obj).text().toLowerCase() === "sold") {
           $(obj).parent().fadeOut(0);
         }
-        // else if ($(obj).text().toLowerCase() === "open") {
-        //   $(obj).parent().fadeIn(0);
-        // }
       })
     } else if (status === "sold") {
       $.each($('th[data-status]'), function(i, obj){
         if ($(obj).text().toLowerCase() === "open") {
           $(obj).parent().fadeOut(0);
         }
-        // else if ($(obj).text().toLowerCase() === "sold") {
-        //   $(obj).parent().fadeIn(0);
-        // }
       })
     }
-    // else if (status === "all") {
-    //   $.each($('th[data-status]'), function(i, obj){
-    //       $(obj).parent().fadeIn(0);
-    //   })
-    // }
   },
 
   this.filterStock = function() {
     var stock = $('#select-ticker option:selected').text().toLowerCase();
     if (stock === "all") {
-      // $.each($('td[data-ticker]'), function(i, obj) {
-      //   $(obj).parent().fadeIn(0);
-      // })
     } else {
       $.each($('td[data-ticker]'), function(i, obj) {
         if ($(obj).text().toLowerCase() === stock) {
-          // $(obj).parent().fadeIn(0);
         } else {
           $(obj).parent().fadeOut(0);
         }
@@ -52,7 +37,6 @@ function FilterController() {
     $.each($('td[data-days-open]'), function(i, obj) {
       currentSpan = Number($(obj).text())
       if (currentSpan >= maxSpan) {
-        // $(obj).parent().fadeIn(0);
       }
       else {
         $(obj).parent().fadeOut(0);
@@ -64,7 +48,6 @@ function FilterController() {
     dateExpired = new Date($('#select-expired-date').val());
     $.each($('td[data-sell-datetime]'), function(i, obj) {
       if (new Date($(obj).text()) >= dateExpired || $(obj).text() === "") {
-        // $(obj).parent().fadeIn(0);
       }
       else {
         $(obj).parent().fadeOut(0);
@@ -110,6 +93,13 @@ $('#sell-stock-header').click(function(e) {
   $('#sell-stock-form').fadeToggle(300)
 });
 
+$('#twitter-analysis-header').click(function(e) {
+  $('#twitter-analysis').fadeToggle(300)
+});
+
+$('#news-box-header').click(function(e) {
+  $('#news-box').fadeToggle(300)
+});
 
 
 });

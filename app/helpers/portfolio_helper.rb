@@ -43,11 +43,15 @@ helpers do
       quotes = stock.quotes.sort_by { |q| q.datetime }
       if quotes.first.datetime == Date.parse('2014-02-20')
         quotes.each do |quote|
-          graph_data << quote.export
+          if quote.comparison_index
+            graph_data << quote.export
+          end
         end
       end
     end
-    puts graph_data
+    Stock.find(321).quotes.sort_by { |q| q.datetime }.each do |quote|
+      graph_data << quote.export
+    end
     save_to_file(graph_data)
   end
 
@@ -58,6 +62,22 @@ helpers do
         csv << data
       end
     end
+  end
+
+  def get_tweets_data
+    tweets = {}
+    stocks_in_portfolio.uniq.each do |stock|
+      tweets[stock.ticker] = TwitterApi.new.search_tweets(stock.ticker, 10)
+    end
+    tweets
+  end
+
+  def get_news_data
+    news = {}
+    stocks_in_portfolio.uniq.each do |stock|
+      news[stock.ticker] = NewsAPI.new.search_news(stock.ticker)
+    end
+    news
   end
 
 end

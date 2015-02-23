@@ -31,6 +31,11 @@ require 'bcrypt'
 
 require 'csv'
 
+require 'twitter'
+require 'open-uri'
+require 'json'
+
+
 # Some helper constants for path-centric logic
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 

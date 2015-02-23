@@ -22,6 +22,8 @@ gem 'sinatra-redirect-with-flash'
 
 gem 'bcrypt'
 
+gem 'twitter'
+
 group :test do
   gem 'shoulda-matchers'
   gem 'rack-test'

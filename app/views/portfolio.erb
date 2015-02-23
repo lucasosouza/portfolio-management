@@ -70,8 +70,26 @@
 
   <div class="col col-md-5">
     <div class="panel panel-danger">
-      <div id="sell-stock-header" class="panel-heading"><i class="glyphicon glyphicon-minus"></i> Sell stock</div>
+      <div id="sell-stock-header" class="panel-heading"><i class="glyphicon glyphicon-remove"></i> Sell stock</div>
       <div id="sell-stock-form" style="display:none"><%= erb :"partials/_sell" %></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col col-md-5 col-md-offset-1">
+    <div class="panel panel-info">
+      <div id="twitter-analysis-header" class="panel-heading"><i class="glyphicon glyphicon-cloud "></i> Twitter Analysis (-100 to +100)</div>
+      <div id="twitter-analysis" style="display:none"><%= erb :"partials/_twitter" %></div>
+    </div>
+  </div>
+
+  <div class="col col-md-5">
+    <div class="panel panel-warning">
+      <div id="news-box-header" class="panel-heading"><i class="glyphicon glyphicon-align-justify"></i> Fresh news</div>
+      <div id="news-box" style="display:none"><%= erb :"partials/_news" %></div>
     </div>
   </div>
 

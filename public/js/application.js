@@ -106,39 +106,18 @@ function Controller (portfolio, view) {
     console.log(this.portfolio.sortedTransactions())
     this.view.renderTable(this.portfolio.sortedTransactions())
   }
-
-  // this.stockFilter = function(){
-  //   $('#select-status').change(function(e) {
-  //   var status = $('#select-status option:selected').text().toUpperCase();
-  //   if (status === "open") {
-  //     $.each(this.portfolio.transactions, function(i, t){
-  //       if (t.status === "SOLD") {
-  //         $(obj).parent().fadeOut(0);
-  //       } else if ($(obj).text().toLowerCase() === "open") {
-  //         $(obj).parent().fadeIn(0);
-  //       }
-  //     })
-  //   } else if (status === "sold") {
-  //     $.each($('th[data-status]'), function(i, obj){
-  //       if ($(obj).text().toLowerCase() === "open") {
-  //         $(obj).parent().fadeOut(0);
-  //       } else if ($(obj).text().toLowerCase() === "sold") {
-  //         $(obj).parent().fadeIn(0);
-  //       }
-  //     })
-  //   } else if (status === "all") {
-  //     $.each($('th[data-status]'), function(i, obj){
-  //         $(obj).parent().fadeIn(0);
-  //     })
-  //   }
-  // }
-
 }
 
 var portfolio = new Portfolio();
 var view = new View();
 var controller = new Controller(portfolio, view);
-$.ajax({url: "/api/v1/quotes"}).done(function(res){ controller.updateQuotes(res) })
+var graphController = new GraphController();
+$.ajax({url: "/api/v1/quotes"}).done(function(res){
+  controller.updateQuotes(res);
+  graphController.parse();
+  updateTweets();
+  updateNews();
+})
 
 //ajax updates
 
@@ -152,6 +131,9 @@ $('#buy-form').submit(function(event){
   }).done(function(response){
     console.log("Sucessfully added operation")
     controller.updateQuotes(response);
+    graphController.parse();
+    updateTweets();
+    updateNews();
   }).fail(function(error){
     console.log("Unable to add operation")
   });
@@ -168,6 +150,9 @@ $('#sell-form').submit(function(event){
   }).done(function(response){
     console.log("Sucessfully closed operation")
     controller.updateQuotes(response);
+    graphController.parse();
+    updateTweets();
+    updateNews();
   }).fail(function(error){
     console.log("Unable to close operation")
   });
